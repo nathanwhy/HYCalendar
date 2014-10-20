@@ -23,7 +23,10 @@
     [self.view addSubview:calendarView];
     
     calendarView.date = [NSDate date];
-    
+    calendarView.calendarBlock =  ^(NSInteger day, NSInteger month, NSInteger year){
+        
+        NSLog(@"%li-%li-%li", year,month,day);
+    };
     
 }
 

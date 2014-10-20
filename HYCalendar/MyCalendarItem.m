@@ -80,8 +80,7 @@
     return newDate;
 }
 
-- (NSDate*)nextMonth:(NSDate *)date
-{
+- (NSDate*)nextMonth:(NSDate *)date{
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.month = +1;
     NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:date options:0];
@@ -191,7 +190,9 @@
     
     NSDateComponents *comp = [[NSCalendar currentCalendar] components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:self.date];
     
-    NSLog(@" date = %li-%li-%li", [comp year], [comp month], day);
+    if (self.calendarBlock) {
+        self.calendarBlock(day, [comp month], [comp year]);
+    }
 }
 
 
