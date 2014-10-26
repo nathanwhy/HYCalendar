@@ -18,8 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // demo1
     MyCalendarItem *calendarView = [[MyCalendarItem alloc] init];
-    calendarView.frame = CGRectMake(10, 50, 355, 300);
+    calendarView.frame = CGRectMake(10, 30, 355, 300);
     [self.view addSubview:calendarView];
     
     calendarView.date = [NSDate date];
@@ -27,6 +28,14 @@
         
         NSLog(@"%li-%li-%li", year,month,day);
     };
+    
+    // demo2
+    MyCalendarItem *calendarView2 = [[MyCalendarItem alloc] init];
+    calendarView2.frame = CGRectMake(10, 350, 355, 300);
+    [self.view addSubview:calendarView2];
+    
+    calendarView2.date = [calendarView2 nextMonth:[NSDate date]];
+    
     
 }
 

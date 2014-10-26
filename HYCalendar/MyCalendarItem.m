@@ -51,15 +51,16 @@
 }
 
 
-- (NSInteger)firstWeekdayInThisMonth{
-    NSCalendar *calendar2 = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+- (NSInteger)firstWeekdayInThisMonth:(NSDate *)date{
+//    NSCalendar *calendar2 = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     
-    [calendar2 setFirstWeekday:1];//1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
-    NSDateComponents *comp = [calendar2 components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:[NSDate date]];
+    [calendar setFirstWeekday:1];//1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
+    NSDateComponents *comp = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
     [comp setDay:1];
-    NSDate *firstDayOfMonthDate = [calendar2 dateFromComponents:comp];
+    NSDate *firstDayOfMonthDate = [calendar dateFromComponents:comp];
     
-    NSUInteger firstWeekday = [calendar2 ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfMonth forDate:firstDayOfMonthDate];
+    NSUInteger firstWeekday = [calendar ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfMonth forDate:firstDayOfMonthDate];
     return firstWeekday - 1;
 }
 
@@ -143,7 +144,7 @@
         
         NSInteger daysInLastMonth = [self totaldaysInMonth:[self lastMonth:date]];
         NSInteger daysInThisMonth = [self totaldaysInMonth:date];
-        NSInteger firstWeekday = [self firstWeekdayInThisMonth];
+        NSInteger firstWeekday = [self firstWeekdayInThisMonth:date];
         
         NSInteger day = 0;
         
