@@ -20,7 +20,7 @@
     
     // demo1
     MyCalendarItem *calendarView = [[MyCalendarItem alloc] init];
-    calendarView.frame = CGRectMake(10, 30, 355, 300);
+    calendarView.frame = CGRectMake(10, 30, 300, 200);
     [self.view addSubview:calendarView];
     
     calendarView.date = [NSDate date];
@@ -31,7 +31,7 @@
     
     // demo2
     MyCalendarItem *calendarView2 = [[MyCalendarItem alloc] init];
-    calendarView2.frame = CGRectMake(10, 350, 355, 300);
+    calendarView2.frame = CGRectMake(10, 230, 300, 200);
     [self.view addSubview:calendarView2];
     
     calendarView2.date = [calendarView2 nextMonth:[NSDate date]];

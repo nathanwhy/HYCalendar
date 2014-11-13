@@ -19,15 +19,12 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
         _daysArray = [NSMutableArray arrayWithCapacity:42];
         for (int i = 0; i < 42; i++) {
             UIButton *button = [[UIButton alloc] init];
             [self addSubview:button];
             [_daysArray addObject:button];
         }
-        
-        
     }
     return self;
 }
@@ -52,26 +49,19 @@
 
 
 - (NSInteger)firstWeekdayInThisMonth:(NSDate *)date{
-//    NSCalendar *calendar2 = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
     [calendar setFirstWeekday:1];//1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
     NSDateComponents *comp = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
     [comp setDay:1];
     NSDate *firstDayOfMonthDate = [calendar dateFromComponents:comp];
-    
     NSUInteger firstWeekday = [calendar ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfMonth forDate:firstDayOfMonthDate];
     return firstWeekday - 1;
 }
 
-- (NSInteger)totaldaysInThisMonth:(NSDate *)date{
-    NSRange totaldaysInMonth = [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
-    return totaldaysInMonth.length;
-}
-
 - (NSInteger)totaldaysInMonth:(NSDate *)date{
-    NSRange daysInLastMonth = [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
-    return daysInLastMonth.length;
+    NSRange daysInOfMonth = [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
+    return daysInOfMonth.length;
 }
 
 - (NSDate *)lastMonth:(NSDate *)date{
@@ -105,9 +95,7 @@
     headlabel.text     = [NSString stringWithFormat:@"%li年%li月",[self year:date],[self month:date]];
     headlabel.font     = [UIFont systemFontOfSize:14];
     headlabel.frame           = CGRectMake(0, 0, self.frame.size.width, itemH);
-    headlabel.textColor       = [UIColor whiteColor];
     headlabel.textAlignment   = NSTextAlignmentCenter;
-    headlabel.backgroundColor = [UIColor orangeColor];
     [self addSubview:headlabel];
     
     // 2.weekday
@@ -144,7 +132,7 @@
         
         NSInteger daysInLastMonth = [self totaldaysInMonth:[self lastMonth:date]];
         NSInteger daysInThisMonth = [self totaldaysInMonth:date];
-        NSInteger firstWeekday = [self firstWeekdayInThisMonth:date];
+        NSInteger firstWeekday    = [self firstWeekdayInThisMonth:date];
         
         NSInteger day = 0;
         
@@ -218,7 +206,6 @@
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
     [btn setBackgroundColor:[UIColor orangeColor]];
 }
-
 
 - (void)setStyle_AfterToday:(UIButton *)btn
 {
