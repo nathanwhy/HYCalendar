@@ -6,10 +6,11 @@
 //  Copyright (c) 2014年 nathan. All rights reserved.
 //
 
-#import "MyCalendarItem.h"
+#import "HYCalendarView.h"
 
 
-@implementation MyCalendarItem
+
+@implementation HYCalendarView
 {
     UIButton  *_selectButton;
     NSMutableArray *_daysArray;
@@ -29,55 +30,6 @@
     return self;
 }
 
-#pragma mark - date
-
-- (NSInteger)day:(NSDate *)date{
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
-    return [components day];
-}
-
-
-- (NSInteger)month:(NSDate *)date{
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
-    return [components month];
-}
-
-- (NSInteger)year:(NSDate *)date{
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
-    return [components year];
-}
-
-
-- (NSInteger)firstWeekdayInThisMonth:(NSDate *)date{
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    
-    [calendar setFirstWeekday:1];//1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
-    NSDateComponents *comp = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
-    [comp setDay:1];
-    NSDate *firstDayOfMonthDate = [calendar dateFromComponents:comp];
-    NSUInteger firstWeekday = [calendar ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfMonth forDate:firstDayOfMonthDate];
-    return firstWeekday - 1;
-}
-
-- (NSInteger)totaldaysInMonth:(NSDate *)date{
-    NSRange daysInOfMonth = [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
-    return daysInOfMonth.length;
-}
-
-- (NSDate *)lastMonth:(NSDate *)date{
-    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-    dateComponents.month = -1;
-    NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:date options:0];
-    return newDate;
-}
-
-- (NSDate*)nextMonth:(NSDate *)date{
-    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-    dateComponents.month = +1;
-    NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:date options:0];
-    return newDate;
-}
-
 #pragma mark - create View
 - (void)setDate:(NSDate *)date{
     _date = date;
@@ -92,7 +44,7 @@
     
     // 1.year month
     UILabel *headlabel = [[UILabel alloc] init];
-    headlabel.text     = [NSString stringWithFormat:@"%li年%li月",[self year:date],[self month:date]];
+    headlabel.text     = [NSString stringWithFormat:@"%li-%li-",[HYCalendarTool year:date],[HYCalendarTool month:date]];
     headlabel.font     = [UIFont systemFontOfSize:14];
     headlabel.frame           = CGRectMake(0, 0, self.frame.size.width, itemH);
     headlabel.textAlignment   = NSTextAlignmentCenter;
@@ -130,9 +82,9 @@
         [dayButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
         [dayButton addTarget:self action:@selector(logDate:) forControlEvents:UIControlEventTouchUpInside];
         
-        NSInteger daysInLastMonth = [self totaldaysInMonth:[self lastMonth:date]];
-        NSInteger daysInThisMonth = [self totaldaysInMonth:date];
-        NSInteger firstWeekday    = [self firstWeekdayInThisMonth:date];
+        NSInteger daysInLastMonth = [HYCalendarTool totaldaysInMonth:[HYCalendarTool lastMonth:date]];
+        NSInteger daysInThisMonth = [HYCalendarTool totaldaysInMonth:date];
+        NSInteger firstWeekday    = [HYCalendarTool firstWeekdayInThisMonth:date];
         
         NSInteger day = 0;
         
@@ -153,9 +105,9 @@
         [dayButton setTitle:[NSString stringWithFormat:@"%li", day] forState:UIControlStateNormal];
         
         // this month
-        if ([self month:date] == [self month:[NSDate date]]) {
+        if ([HYCalendarTool month:date] == [HYCalendarTool month:[NSDate date]]) {
             
-            NSInteger todayIndex = [self day:date] + firstWeekday - 1;
+            NSInteger todayIndex = [HYCalendarTool day:date] + firstWeekday - 1;
             
             if (i < todayIndex && i >= firstWeekday) {
                 [self setStyle_BeforeToday:dayButton];

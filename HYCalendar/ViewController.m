@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "MyCalendarItem.h"
+#import "HYCalendarView.h"
 
 @interface ViewController ()
 
@@ -18,9 +18,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    CGSize size = [UIScreen mainScreen].bounds.size;
+    
     // demo1
-    MyCalendarItem *calendarView = [[MyCalendarItem alloc] init];
-    calendarView.frame = CGRectMake(10, 30, 300, 200);
+    HYCalendarView *calendarView = [[HYCalendarView alloc] init];
+    calendarView.frame = CGRectMake(10, 30, size.width-20, 200);
     [self.view addSubview:calendarView];
     
     calendarView.date = [NSDate date];
@@ -30,11 +32,11 @@
     };
     
     // demo2
-    MyCalendarItem *calendarView2 = [[MyCalendarItem alloc] init];
-    calendarView2.frame = CGRectMake(10, 230, 300, 200);
+    HYCalendarView *calendarView2 = [[HYCalendarView alloc] init];
+    calendarView2.frame = CGRectMake(10, 230, size.width-20, 200);
     [self.view addSubview:calendarView2];
     
-    calendarView2.date = [calendarView2 nextMonth:[NSDate date]];
+    calendarView2.date = [HYCalendarTool nextMonth:[NSDate date]];
     
     
 }

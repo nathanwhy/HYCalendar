@@ -7,12 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HYCalendarTool.h"
 
-@interface MyCalendarItem : UIView
-
-- (void)createCalendarViewWith:(NSDate *)date;
-- (NSDate *)nextMonth:(NSDate *)date;
-- (NSDate *)lastMonth:(NSDate *)date;
+@interface HYCalendarView : UIView
 
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, copy) void(^calendarBlock)(NSInteger day, NSInteger month, NSInteger year);
