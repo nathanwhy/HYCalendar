@@ -44,7 +44,7 @@
     
     // 1.year month
     UILabel *headlabel = [[UILabel alloc] init];
-    headlabel.text     = [NSString stringWithFormat:@"%li-%li-",[HYCalendarTool year:date],[HYCalendarTool month:date]];
+    headlabel.text     = [NSString stringWithFormat:@"%li-%li",[HYCalendarTool year:date],[HYCalendarTool month:date]];
     headlabel.font     = [UIFont systemFontOfSize:14];
     headlabel.frame           = CGRectMake(0, 0, self.frame.size.width, itemH);
     headlabel.textAlignment   = NSTextAlignmentCenter;
